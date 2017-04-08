@@ -203,6 +203,7 @@ a.light:hover {
 }
 .panel .inner li {
   line-height: 2em;
+
 }
 .panel > .cell:last-child {
   box-shadow: none;
@@ -757,7 +758,9 @@ textarea#title {
 }
 .pagination ul {
   box-shadow: none;
+  list-style: none;
 }
+
 .pagination a {
   line-height: 30px;
   color: #f6f6f6;

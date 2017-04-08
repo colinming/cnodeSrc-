@@ -10,6 +10,12 @@ var signController = require('../controllers/sign');
 //引入发表话题控制住器
 var topicController = require('../controllers/topic');
 
+//引入列表页控制器
+var siteController = require('../controllers/site');
+
+//引用评论控制器
+var replyController = require('../controllers/reply');
+
 
 //引入中间件文件，用于处理用户是否登录
 var auth = require('../middlewares/auth');
@@ -32,7 +38,7 @@ router.post('/signin',signController.signin);
 router.get('/signout',signController.signout);
 
 
-//发表话题部分路由
+/****发表话题部分路由****/
 //显示发表话题页面
 //在回调函数之前，先用auth.requireLogin判断是否登录
 router.get('/topic/create',auth.requireLogin,topicController.showCreate);
@@ -40,5 +46,21 @@ router.get('/topic/create',auth.requireLogin,topicController.showCreate);
 //处理用户提交的话题信息
 router.post('/topic/create',auth.requireLogin,topicController.create);
 
+
+/***列表页路由***/
+//使用控制器里的index方法
+router.get('/',siteController.index);
+
+
+/**详情页路由**/ 
+router.get('/topic/:tid',topicController.detail);
+
+
+//评论部分路由
+//处理评论提交, requireLogin表示需要是登录状态
+router.post('/reply/reply',auth.requireLogin,replyController.addReply);
+
+//处理评论图片上传
+router.post('/upload',auth.requireLogin,replyController.upload);
 
 module.exports = router;

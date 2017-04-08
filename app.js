@@ -23,6 +23,13 @@ var session = require('express-session');
 //关联session
 var RedisStore = require('connect-redis')(session);
 
+//引入markdown转换工具
+var MarkdownIt = require('markdown-it');
+var md = new MarkdownIt();
+
+//引入上传文件工具
+var busboy = require('connect-busboy');
+
 
 var app = express();
 
@@ -55,6 +62,10 @@ app.use(session({
     saveUninitialized:true
 }))
 
+//使用busboy
+app.use(busboy());
+
+
 //登出效果
 app.use(function(req,res,next){
     app.locals.current_user = req.session.user; //将session里面的user数据赋给current_user
@@ -64,7 +75,8 @@ app.use(function(req,res,next){
 
 //利用locals传递配置文件
 app.locals.config = config;
-
+//传递markdown对象，在detail.html中使用
+app.locals.md = md;
 
 
 //原来路由文件的使用

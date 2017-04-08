@@ -1,0 +1,70 @@
+<!-- 列表页 -->
+
+<!-- 引入布局文件 -->
+<%-layout('layout')%>
+
+<div id="content">
+    <div class="panel">
+        <div class="header">
+            <a href="/" class="topic-tab current-tab">全部</a>
+            <a href="/?tab=tab1" class="topic-tab">精华</a>
+            <a href="/?tab=tab2" class="topic-tab">分享</a>
+        </div>
+        <div class="inner">
+            <div id="topic_list">
+                <!-- 引入list页面
+                将获取到的topics数据引入，
+                指定topic为topics里面的每一条数据
+                     -->
+                <%-partial('./topic/list',{collection:topics,as:'topic'})%>
+            </div>
+
+            <!-- 分页 -->
+            <div class="Page navigation">
+                <ul class="pagination">
+                    <li><a href="/?tab=<%=tab%>&page=1">&lt;&lt;</a></li>
+                    
+                    <!-- 左省略号 判断是否显示省略号 -->
+                    <%if(page-3 > 1){%>
+                    <li><a>......</a></li>
+                    <%}%>
+
+                    <!-- 比当前页小的显示 -->
+                    <%
+                        var i =3;
+                        while(i >= 1){
+                            if(page-i >= 1){%>
+                                <li><a href="/?tab=<%=tab%>&page=<%=page-i%>"><%=page-i%></a></li>
+                            <%}
+                            i--;
+                        }
+                    %>
+
+                    <!-- 当前页 -->
+                    <li class="disabled active"><a href="/?tab=<%=tab%>&page=<%=page%>"><%=page%></a></li>
+                    
+                    <!-- 比当前页大的显示 -->
+                    <%
+                        var i =1;
+                        while(i<=3){
+                            if(page+i <= pageCount){%>
+                                <li><a href="/?tab=<%=tab%>&page=<%=page+i%>"><%=page+i%></a></li>
+                            <%}
+                            i++;
+                        }
+                    %>
+        
+                    <!-- 右省略号 -->
+                    <!-- pageCount页数总数 -->
+                    <%if(page+3<pageCount){%>
+                    <li><a>......</a></li>
+                    <%}%>
+                    
+                    <!-- 注意ejs模板语法赋值要带等号 page = <%= pageCount %> -->
+                    <li><a href="/?tab=<%=tab%>&page=<%=pageCount%>">&gt;&gt;</a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+</div>
