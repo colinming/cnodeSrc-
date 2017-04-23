@@ -5,40 +5,27 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//引入模板文件
+
 var engine = require('ejs-mate');
 
-//原来的路由配置文件
-// var index = require('./routes/index');
-// var users = require('./routes/users');
-
-//定义自己的路由
 var webRouter = require('./routes/web_router');
 
-//引入配置文件
 var config = require('./config');
 
-//引入session，在登录注册部分用到
 var session = require('express-session');
-//关联session
+
 var RedisStore = require('connect-redis')(session);
 
-//引入markdown转换工具
 var MarkdownIt = require('markdown-it');
 var md = new MarkdownIt();
 
-//引入上传文件工具
 var busboy = require('connect-busboy');
-
 
 var app = express();
 
-// view engine setup
-//配置html文件
 app.engine('html',engine);
 app.set('views', path.join(__dirname, 'views'));
 
-//修改为html文件
 app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
@@ -48,7 +35,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//修改静态文件配置路径
 app.use('/public',express.static(path.join(__dirname, 'public')));
 
 //使用session
@@ -62,7 +48,6 @@ app.use(session({
     saveUninitialized:true
 }))
 
-//使用busboy
 app.use(busboy());
 
 
@@ -78,12 +63,6 @@ app.locals.config = config;
 //传递markdown对象，在detail.html中使用
 app.locals.md = md;
 
-
-//原来路由文件的使用
-// app.use('/', index);
-// app.use('/users', users);
-
-//自己定义路由文件的使用
 app.use('/',webRouter);
 
 

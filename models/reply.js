@@ -2,7 +2,6 @@
 // 评论数据模型
 
 
-//引入mongoose专用连接数据库文件
 var mongoose = require('../mongoose_helper').mongoose;
 
 
