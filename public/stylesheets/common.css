@@ -2,11 +2,7 @@ body, p, input, textarea {
     font-size: 14px;
     word-break: break-word;
 }
-input{
-    outline:none;
-    border:none;
-}
-a{text-decoration:none;}
+
 textarea, input[type="text"],
 input[type="password"],
 input[type="datetime"],

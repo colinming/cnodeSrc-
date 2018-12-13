@@ -1,17 +1,9 @@
-
 <div class="cell">
-    <!-- index.html指定了topic为topics里面的每一条数据 
-    改写以前写死的内容
-    -->
-    <span class="user_name pull-left"><%=topic.username%></span>
-    
-    <a class="last_time pull-right">
-        <span class="last_active_time"><%=topic.timeStr%></span>
-    </a>
-
-    <div class="topic_title_wrapper">
-        <!-- 注意这里href，topic数据下面，_id是mongodb自己生成的 -->
-        <a href="/topic/<%=topic._id%>" class="topic_title"><%=topic.title%></a>
-    </div>
-
+	<span class="user_name pull-left"><%=topic.username%></span>
+	<a class="last_time pull-right">
+		<span class="last_active_time"><%=topic.timeStr%></span>
+	</a>
+	<div class="topic_title_wrapper">
+		<a href="/topic/<%=topic._id%>" class="topic_title"><%=topic.title%></a>
+	</div>
 </div>
